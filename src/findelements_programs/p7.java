@@ -1,0 +1,58 @@
+package findelements_programs;
+//program to print the name and price of nike shoes in Myntra
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class p7 {
+	public static void main(String[] args) {
+		// sets path for chromedriver.exe
+		System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
+
+		//launches the chrome browser
+		WebDriver driver = new ChromeDriver();
+
+		//maximizes the browser window 
+		driver.manage().window().maximize();
+		
+		//retrieves the web app and waits until it is loaded
+		driver.get("https://www.Myntra.com");
+		
+		driver.findElement(By.className("desktop-searchBar")).sendKeys("Nike shoes");
+		
+		driver.findElement(By.className("desktop-submit")).click();
+		
+		List<WebElement> names = driver.findElements(By.xpath("//h4[@class='product-product']"));
+		
+		List<WebElement> prices = driver.findElements(By.xpath("//h4[@class='product-product']/..//div[@class='product-price']"));
+		
+		//creates an Iterator object with respect to(wrt) names
+				Iterator<WebElement> itr1 = names.iterator();
+
+				//creates an Iterator object wrt prices
+				Iterator<WebElement> itr2 = prices.iterator();
+
+				//Iterates List<WebElement> names and prices 
+				while (itr1.hasNext()&&itr2.hasNext()) {
+					String name = itr1.next().getText();
+					String price= itr2.next().getText();
+					System.out.println(name+"="+ price);
+
+				}
+				//closes the browser
+				driver.quit();
+
+		
+		
+		
+		
+	}
+		
+		
+
+}
